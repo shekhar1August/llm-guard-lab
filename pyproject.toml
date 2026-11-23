@@ -1,0 +1,30 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "llm-guard-lab"
+version = "0.1.0"
+description = "Guardrail compliance suites and adaptive prompt-injection campaigns for LLM applications"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+dependencies = [
+    "fastapi>=0.110",
+    "uvicorn[standard]>=0.29",
+    "httpx>=0.27",
+    "jinja2>=3.1",
+    "reportlab>=4.0",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8.0"]
+
+[project.scripts]
+llm-guard-lab = "llm_guard_lab.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["llm_guard_lab*"]
+
+[tool.setuptools.package-data]
+"llm_guard_lab" = ["datasets/*.json", "server/static/*"]

@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>llm-guard-lab</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+  <h1>llm-guard-lab</h1>
+  <div class="tagline">guardrail compliance suites · adaptive prompt-injection campaigns</div>
+  <nav>
+    <button class="tabbtn active" data-tab="compliance">Compliance</button>
+    <button class="tabbtn" data-tab="campaign">Campaign</button>
+    <button class="tabbtn" data-tab="runs">Runs</button>
+  </nav>
+</header>
+<main>
+
+<section class="tab active" id="tab-compliance">
+  <div class="card">
+    <h2>Guardrail compliance suite</h2>
+    <p class="hint">Expected-verdict dataset: every case must match its <code>blocked</code> expectation. Refusals count as blocked for reply-only targets.</p>
+    <form id="compliance-form">
+      <fieldset id="compliance-target" class="target-config"></fieldset>
+      <div class="field">
+        <label for="compliance-dataset">Dataset</label>
+        <select id="compliance-dataset"></select>
+      </div>
+      <div class="actions">
+        <button type="submit" class="primary" id="compliance-run">Run suite</button>
+        <button type="button" class="cancel hidden" data-run="compliance">Cancel</button>
+      </div>
+    </form>
+  </div>
+  <div id="compliance-status" class="status"></div>
+  <div id="compliance-summary"></div>
+  <table class="results" id="compliance-results" hidden>
+    <thead><tr><th>#</th><th>id</th><th>category</th><th>expected</th><th>blocked</th><th>verdict</th><th>reply</th></tr></thead>
+    <tbody></tbody>
+  </table>
+</section>
+
+<section class="tab" id="tab-campaign">
+  <div class="card">
+    <h2>Injection campaign</h2>
+    <p class="hint">Canary-carrying payloads across the OWASP LLM01 taxonomy. Payloads carry harmless canary tokens — authorized testing only.</p>
+    <form id="campaign-form">
+      <fieldset id="campaign-target" class="target-config"></fieldset>
+      <div class="field">
+        <label>Categories <span class="muted" id="category-hint">(none selected = all)</span></label>
+        <div class="chips" id="campaign-categories"></div>
+      </div>
+      <div class="field">
+        <label><input type="checkbox" id="campaign-adaptive"> adaptive mutations — retry defended payloads through the escalation chain</label>
+      </div>
+      <div class="field inline">
+        <label for="campaign-max-tries">max mutation tries</label>
+        <input type="number" id="campaign-max-tries" value="5" min="1" max="9">
+      </div>
+      <div class="field inline">
+        <label for="campaign-judge">LLM judge endpoint (optional)</label>
+        <input type="text" id="campaign-judge" placeholder="http://localhost:8000">
+      </div>
+      <div class="field inline">
+        <label for="campaign-judge-model">judge model</label>
+        <input type="text" id="campaign-judge-model" value="gpt-4o-mini">
+      </div>
+      <div class="actions">
+        <button type="submit" class="primary" id="campaign-run">Run campaign</button>
+        <button type="button" class="cancel hidden" data-run="campaign">Cancel</button>
+      </div>
+    </form>
+  </div>
+  <div id="campaign-status" class="status"></div>
+  <div id="campaign-summary"></div>
+  <table class="results" id="campaign-results" hidden>
+    <thead><tr><th>#</th><th>id</th><th>category</th><th>severity</th><th>verdict</th><th>detail</th></tr></thead>
+    <tbody></tbody>
+  </table>
+</section>
+
+<section class="tab" id="tab-runs">
+  <div class="card">
+    <h2>Persisted runs</h2>
+    <div class="actions"><button type="button" class="primary" id="runs-refresh">Refresh</button></div>
+    <table class="results" id="runs-table">
+      <thead><tr><th>run</th><th>started</th><th>mode</th><th>status</th><th>target</th><th>reports</th><th></th></tr></thead>
+      <tbody></tbody>
+    </table>
+  </div>
+  <div id="run-detail"></div>
+</section>
+
+</main>
+<script src="app.js"></script>
+</body>
+</html>
