@@ -2,7 +2,7 @@ FROM python:3.12-slim
 
 WORKDIR /app
 
-COPY pyproject.toml README.md LICENSE ./
+COPY pyproject.toml README.md ./
 COPY llm_guard_lab ./llm_guard_lab
 COPY THIRD_PARTY_NOTICES.md ./
 COPY THIRD_PARTY_LICENSES ./THIRD_PARTY_LICENSES/

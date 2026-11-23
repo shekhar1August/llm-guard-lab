@@ -141,11 +141,3 @@ pytest
 docker build -t llm-guard-lab .
 docker run -p 8505:8505 -v "$PWD/data:/app/data" llm-guard-lab
 ```
-
-## License & attribution
-
-MIT — see `LICENSE`. This project vendors and adapts MIT-licensed code from
-[plalan/llm-injection-harness](https://github.com/plalan/llm-injection-harness)
-and
-[MathiasPaulenko/qa-practices-resources](https://github.com/MathiasPaulenko/qa-practices-resources);
-see `THIRD_PARTY_NOTICES.md` and `THIRD_PARTY_LICENSES/`.
